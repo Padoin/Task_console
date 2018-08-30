@@ -1,0 +1,72 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "CalculadoraAB.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::btnSomaClick(TObject *Sender)
+{
+	LerPrimeiroDigito();
+	op=4;
+}
+//---------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------
+void __fastcall TForm1::btnSubClick(TObject *Sender)
+{
+	LerPrimeiroDigito();
+	op=1;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::btnMultClick(TObject *Sender)
+{
+	LerPrimeiroDigito();
+	op=2;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::btnDivClick(TObject *Sender)
+{
+	LerPrimeiroDigito();
+	op=3;
+}
+
+void __fastcall TForm1::btnResultClick(TObject *Sender)
+{           b= edtEntradaSaida->Text.ToDouble();
+			switch(op)
+			{
+			case 4: resultado = a + b; break;
+			case 1: resultado = a - b; break;
+			case 2: resultado = a * b; break;
+			case 3: resultado = a / b; break;
+			default: resultado = 0.0; break;
+			}
+
+}
+//---------------------------------------------------------------------------
+  void TfrmPrincipal::LerPrimeiroDigito()
+  {
+	  a = edtEntradaSaida->Text.ToDouble();
+
+	  edtEntradaSaida->Clear();
+	  edtEntradaSaida->SetFocus();
+  }
+void __fastcall TForm1::btnLimparClick(TObject *Sender)
+{
+	a= 0;
+	b=0;
+	op=0;
+	edtEntradaSaida->Clear();
+	edtEntradaSaida->SetFocus();
+}
+//---------------------------------------------------------------------------
+

@@ -1,0 +1,32 @@
+//---------------------------------------------------------------------------
+
+#ifndef CalculadoraABH
+#define CalculadoraABH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+	TButton *btnSom;
+	TButton *btnMul;
+	TButton *btnSub;
+	TButton *btnDiv;
+	TButton *btnLimpar;
+	TButton *btnResultado;
+	TEdit *edtEntradaSaida;
+private:	// User declarations
+public:		// User declarations
+	__fastcall TForm1(TComponent* Owner);
+	int op;
+	double a,b;
+    double resultado;
+
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif

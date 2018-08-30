@@ -1,0 +1,76 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 204
+  ClientWidth = 249
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object btnSom: TButton
+    Tag = 4
+    Left = 32
+    Top = 51
+    Width = 75
+    Height = 25
+    Caption = '+'
+    TabOrder = 0
+    OnClick = btnSomClick
+  end
+  object btnMul: TButton
+    Tag = 2
+    Left = 32
+    Top = 89
+    Width = 75
+    Height = 25
+    Caption = '*'
+    TabOrder = 1
+  end
+  object btnSub: TButton
+    Tag = 1
+    Left = 113
+    Top = 51
+    Width = 75
+    Height = 25
+    Caption = '-'
+    TabOrder = 2
+  end
+  object btnDiv: TButton
+    Tag = 3
+    Left = 113
+    Top = 89
+    Width = 75
+    Height = 25
+    Caption = '/'
+    TabOrder = 3
+  end
+  object btnLimpar: TButton
+    Left = 32
+    Top = 136
+    Width = 75
+    Height = 25
+    Caption = 'C'
+    TabOrder = 4
+  end
+  object btnResultado: TButton
+    Left = 113
+    Top = 136
+    Width = 75
+    Height = 25
+    Caption = '='
+    TabOrder = 5
+  end
+  object edtEntradaSaida: TEdit
+    Left = 32
+    Top = 24
+    Width = 156
+    Height = 21
+    TabOrder = 6
+  end
+end

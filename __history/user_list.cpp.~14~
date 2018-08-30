@@ -1,0 +1,49 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+//#include "Unit1.h"
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
+#include <psapi.h>
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+
+TForm1 *TForm1;
+//---------------------------------------------------------------------------
+void __fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+
+void __fastcall TForm1.FindProcesses(Process: TStrings)
+{
+var
+  ContinueLoop                : BOOL;
+  FSnapshotHandle             : THandle;
+  FProcessEntry32             : TProcessEntry32;
+begin
+  FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
+
+  ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
+  while ContinueLoop {and (not Boolean(Result))} do
+  begin
+	Process.Add(FProcessEntry32.szExeFile);
+	ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
+  end;
+end;
+}
+void __fastcall TForm1.Button1Click(*Sender: TObject)
+{
+begin
+  FindProcesses(ListBox1.Items);
+end;
+}
+//---------------------------------------------------------------------------
+
+
+tasklist [/s <Computer> [/u [<Domain>\]<UserName> [/p <Password>]]] [{/m <Module> | /svc | /v}] [/fo {table | list | csv}] [/nh] [/fi <Filter> [/fi <Filter> [ ... ]]]

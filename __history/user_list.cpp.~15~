@@ -1,0 +1,78 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+//#include "Unit1.h"
+#include <windows.h>
+#include <stdio.h>
+#include <tchar.h>
+#include <psapi.h>
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+
+TForm1 *TForm1;
+//---------------------------------------------------------------------------
+void __fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+
+void __fastcall TForm1.Button1Click(*Sender: TObject)
+{
+var
+  Snapshot: THandle;
+  ProcessEntry32: TProcessEntry32;
+begin
+// limpa a listview
+  ListView1.Clear;
+// cria uma "fotografia" dos processos em execução
+  Snapshot := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  if (Snapshot = Cardinal(-1)) then
+    exit;
+  ProcessEntry32.dwSize := SizeOf(TProcessEntry32);
+// pesquisa pela lista de processos
+  if (Process32First(Snapshot, ProcessEntry32)) then
+  repeat
+// enquanto houver processos, adiciona na listview
+    with ListView1.Items.Add do begin
+      Caption := IntToStr(ProcessEntry32.th32ProcessID);
+      SubItems.Add(IntToStr(ProcessEntry32.th32ParentProcessID));
+      SubItems.Add(ProcessEntry32.szExeFile);
+    end;
+  until not Process32Next(Snapshot, ProcessEntry32);
+// fecha "fotografia" de processos
+  CloseHandle (Snapshot);
+end;
+
+procedure TForm1.ListView1SelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+var
+  ModuleSnap : THandle;
+  ModuleEntry32 : TModuleEntry32;
+  ProcessId : Integer;
+begin
+  ListView2.Clear;
+  ProcessId := StrToInt(Item.Caption);
+// tira uma "fotografia dos módulos neste processo
+  ModuleSnap := CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, ProcessId);
+  if (ModuleSnap = Cardinal(-1)) then
+    exit;
+  ModuleEntry32.dwSize := SizeOf(TModuleEntry32);
+// pesquisa pela lista de módulos do processo
+  if (Module32First(ModuleSnap, ModuleEntry32)) then
+  repeat
+// enquanto tiver módulos, preenche a listview
+    with ListView2.Items.Add do begin
+      Caption := String(ModuleEntry32.szModule);
+      SubItems.Add(String(ModuleEntry32.szExePath));
+    end;
+  until not Module32Next(ModuleSnap, ModuleEntry32);
+// fecha "fotografia"
+  CloseHandle(ModuleSnap);
+end;
+}
+//---------------------------------------------------------------------------
+
+

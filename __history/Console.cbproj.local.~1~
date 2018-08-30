@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2018/07/28 10:37:51.782,=D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2018/07/28 10:37:51.811,=D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2018/07/28 10:50:34.350,D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\ListConsole.cpp=D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\File1.cpp</Transaction>
+    <Transaction>2018/07/28 10:50:58.523,D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\Project_Console.h=D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2018/07/28 10:51:02.459,D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\Console.cbproj=D:\Users\GIOVANI\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+  </Transactions>
+</BorlandProject>

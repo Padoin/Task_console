@@ -1,0 +1,49 @@
+//---------------------------------------------------------------------------
+
+#ifndef user_listH
+#define user_listH
+//---------------------------------------------------------------------------
+#include <System.Classes.hpp>
+#include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp>
+#include <Vcl.Forms.hpp>
+//---------------------------------------------------------------------------
+class TForm1 : public TForm
+{
+__published:	// IDE-managed Components
+	TButton *Button1;
+	TListBox *ListBox1;
+	void __fastcall Button1Click(TObject *Sender);
+	void __fastcall FormCreate(TObject *Sender);
+private:	// User declarations
+public:		// User declarations
+	__fastcall TForm1(TComponent* Owner);
+
+
+	procedure TForm1.FindProcesses(Process: TStrings);
+var
+  ContinueLoop                : BOOL;
+  FSnapshotHandle             : THandle;
+  FProcessEntry32             : TProcessEntry32;
+begin
+  FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  FProcessEntry32.dwSize := SizeOf(FProcessEntry32);
+
+  ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
+  while ContinueLoop {and (not Boolean(Result))} do
+  begin
+    Process.Add(FProcessEntry32.szExeFile);
+    ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
+  end;
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  FindProcesses(ListBox1.Items);
+end;
+
+};
+//---------------------------------------------------------------------------
+extern PACKAGE TForm1 *Form1;
+//---------------------------------------------------------------------------
+#endif

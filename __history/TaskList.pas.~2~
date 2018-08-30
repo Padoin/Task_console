@@ -1,0 +1,55 @@
+unit TaskList;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, StdCtrls, Tlhelp32;
+
+type
+  TForm1 = class(TForm)
+    Button1: TButton;
+    ListBox1: TListBox;
+    procedure Button1Click(Sender: TObject);
+    //procedure FormCreate(Sender: TObject);
+    procedure ListarProcessosAbertos;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.ListarProcessosAbertos;
+const
+   PROCESS_TERMINATE = $0001;
+var
+  ContinueLoop: BOOL;
+  FSnapshotHandle: THandle;
+  FProcessEntry32: TProcessEntry32;
+begin
+  FSnapshotHandle := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  FProcessEntry32.dwSize := sizeof(FProcessEntry32);
+  ContinueLoop := Process32First(FSnapshotHandle, FProcessEntry32);
+  ListBox1.Clear;
+  while Integer(ContinueLoop) <> 0 do
+  begin
+    ListBox1.Items.Add(FProcessEntry32.szExeFile);
+    ContinueLoop := Process32Next(FSnapshotHandle, FProcessEntry32);
+  end;
+  CloseHandle(FSnapshotHandle);
+  ListBox1.Sorted := True; //Serve para ordenar a lista dos processos por ordem alfabética
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  ListarProcessosAbertos;
+end;
+
+end.
